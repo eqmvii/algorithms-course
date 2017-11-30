@@ -16,3 +16,4 @@ Coded by Eric Mancini
 (2) javac YourAppName.java
 (3) java -cp . YourAppNameWithNoExtension
 
+(the cp stands for class path, the dot means current directory, and has to do with modularization/including)
