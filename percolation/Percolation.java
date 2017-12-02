@@ -41,7 +41,7 @@ public class Percolation {
        top = ( ((n * n) + 2) - 2);
        bottom = ( ((n * n) + 2) - 1);
        gridSize = (n * n) + 2;
-       this.diagnostics();
+       // this.diagnostics();
        // connect the top to the top row
        // and the bottom to the bottom row
        for (int i = 0; i < grid.length; i++){
@@ -139,7 +139,7 @@ public class Percolation {
            return false;
        }
        else {
-           // System.out.println("It is open!");
+           //System.out.println("It is open!");
            return true;
        }
    }
@@ -175,11 +175,11 @@ public class Percolation {
    // TODO: does the system percolate?
    public boolean percolates() {
        if(dataset.connected(top,bottom)){
-           System.out.println("SYSTEM PERCOLATES!");
+           //System.out.println("SYSTEM PERCOLATES!");
            return true;
        }
           else {
-              System.out.println(". . . . . .");
+              // System.out.println(". . . . . .");
               return false;
           }
    }   
