@@ -1,4 +1,4 @@
-// Percolation.java
+// Percolation.java by Eric Mancini
 // Execution commands for use with the provided packages:
 /* 
 
@@ -12,14 +12,15 @@ java-algs4 Percolation
 
 */
 
-import edu.princeton.cs.algs4.StdRandom;
-import edu.princeton.cs.algs4.StdStats;
+// First Java code I've written in 12 years, so pardon the sloppiness
+// Passes the auto-grader with a score of 80/100
+
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
     
     private int[][] grid;
-    private int gridSize;
+    // private int gridSize;
     private int top;
     private int bottom;
     private WeightedQuickUnionUF dataset;
@@ -40,7 +41,7 @@ public class Percolation {
        dataset = new WeightedQuickUnionUF((n * n) + 2);
        top = ( ((n * n) + 2) - 2);
        bottom = ( ((n * n) + 2) - 1);
-       gridSize = (n * n) + 2;
+       // gridSize = (n * n) + 2;
        // this.diagnostics();
        // connect the top to the top row
        // and the bottom to the bottom row
@@ -87,6 +88,8 @@ public class Percolation {
    
    // open site (row, col) if it is not open already   
    public void open(int row, int col)  {
+       row -= 1;
+       col -=1;
        boundaryCheck(row, col);
 
        if (grid[row][col] == 1) {
@@ -99,15 +102,16 @@ public class Percolation {
        
        // connect it to any open sides in the vicinity
        // look up (row - 1, col)
+       // all calls to isOpen are incremented by 1 because come on
        if (row - 1 >= 0) {
-           if (isOpen(row - 1, col)){               
+           if (isOpen(row, col + 1)){               
                nextCell = gridToLine(row -1, col);
                dataset.union(newCell, nextCell);           
            }
        }
        // look right (row, col + 1)
        if (col + 1 < grid.length){
-           if (isOpen(row, col +1)){               
+           if (isOpen(row + 1, col +2)){               
                nextCell = gridToLine(row, col + 1);
                dataset.union(newCell, nextCell);  
            }
@@ -115,7 +119,7 @@ public class Percolation {
        
        // look down (row + 1, col)
        if (row + 1 < grid.length){
-           if (isOpen(row + 1, col)){               
+           if (isOpen(row + 2, col + 1)){               
                nextCell = gridToLine(row + 1, col);
                dataset.union(newCell, nextCell);           
            }
@@ -123,7 +127,7 @@ public class Percolation {
        
        // look left (row, col - 1)
        if (col - 1 >= 0) {
-           if (isOpen(row, col - 1)){               
+           if (isOpen(row + 1, col)){               
                nextCell = gridToLine(row, col - 1);
                dataset.union(newCell, nextCell);           
            }
@@ -132,6 +136,8 @@ public class Percolation {
    
    // is site (row, col) open?
    public boolean isOpen(int row, int col)  {
+       row -= 1;
+       col -=1;
        boundaryCheck(row, col);
        
        if (grid[row][col] == 0) {
@@ -146,11 +152,13 @@ public class Percolation {
    
    // TODO: is site (row, col) full, i.e., connected to the top?
    public boolean isFull(int row, int col)  {
+       row -= 1;
+       col -=1;
        boundaryCheck(row, col);
 
        // return false if not on the bottom row
        int curCell = gridToLine(row, col);
-       if (dataset.connected(curCell, top) && isOpen(row, col)){
+       if (dataset.connected(curCell, top) && isOpen(row + 1, col + 1)){
            return true;
        }
        else {
@@ -163,7 +171,7 @@ public class Percolation {
        int counter = 0;
        for (int i = 0; i < grid.length; i++) {
            for (int j = 0; j < grid[0].length; j++) {
-               if (isOpen(i,j)) {
+               if (isOpen(i +1,j +1)) {
                    counter += 1;
                }
            }           
@@ -188,11 +196,14 @@ public class Percolation {
    public static void main(String[] args) {
        int size;
        if (args.length < 1) {
-           // throw new IllegalArgumentException("Must provide an argument!");
-           size = 3;
+           throw new IllegalArgumentException("Must provide an argument!");
+           // size = 3;
        }
        else {
            size = Integer.parseInt(args[0]);
+           if (size < 1) {
+               throw new IllegalArgumentException("No negative small percolations silly");
+           }
        }           
 
        System.out.println("Hello, World. This was run from Percolation!");

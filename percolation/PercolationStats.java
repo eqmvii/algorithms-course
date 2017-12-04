@@ -1,7 +1,10 @@
-// PercolationStats.java
+// PercolationStats.java by Eric Mancini
 // Execution commands for use with the provided packages:
 // Compile: javac-algs4 PercolationStats.java
 // Run: java-algs4 PercolationStats
+
+// First Java code I've written in 12 years, so pardon the sloppiness
+// Passes the auto-grader with a score of 80/100
 
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
@@ -13,11 +16,15 @@ public class PercolationStats {
     private Percolation myPerc;
     private int rowLength;
     private double[] trialCountArray;
+    private double s;
+    private double the_mean;
+    private int num_trials;
     
    // perform trials independent experiments on an n-by-n grid
    public PercolationStats(int n, int trials)
    {
        rowLength = n;
+       num_trials = trials;
        trialCountArray = new double[trials];
        int trial_counter;
        double testo;
@@ -53,21 +60,7 @@ public class PercolationStats {
        }
        */
        
-       System.out.println();
-       System.out.println();
-       System.out.print(" - - - mean: ");
-       System.out.print(mean(trialCountArray));
-       System.out.println();
-       System.out.print(" - - - stddv: ");
-       System.out.print(stddev(trialCountArray));
-       System.out.println();
-       System.out.print(" - - - conflow: ");
-       System.out.print( confidenceLo(mean(trialCountArray), stddev(trialCountArray), (double) trials) );
-       System.out.println();
-        System.out.print(" - - - confhi: ");
-       System.out.print( confidenceHi(mean(trialCountArray), stddev(trialCountArray), (double) trials) );
-       System.out.println();
-       System.out.println();
+
    }
    
    private int percTest(Percolation testPerc){
@@ -76,8 +69,8 @@ public class PercolationStats {
        //int sanity = 0;
        while (testPerc.percolates() == false) {
            //sanity++;
-           row = StdRandom.uniform(0, rowLength);
-           col = StdRandom.uniform(0, rowLength);           
+           row = StdRandom.uniform(1, rowLength + 1);
+           col = StdRandom.uniform(1, rowLength + 1);           
                       
            // System.out.print(row);
            // System.out.print(" ");
@@ -110,27 +103,29 @@ public class PercolationStats {
    }
    
    // sample mean of percolation threshold
-   public double mean(double[] trialArray)
+   public double mean()
    {
-       return StdStats.mean(trialArray);
+       the_mean = StdStats.mean(trialCountArray);
+       return the_mean;
    }
    
    // sample standard deviation of percolation threshold
-   public double stddev(double[] trialArray)         
+   public double stddev()         
    {
-       return StdStats.stddev(trialArray);
+       s = StdStats.stddev(trialCountArray);
+       return s;
    }
    
    // low  endpoint of 95% confidence interval
-   public double confidenceLo(double m, double s, double trials)
+   public double confidenceLo()
    {
-       return ( m - ( (1.96 * s) / Math.sqrt(trials) ) );
+       return ( the_mean - ( (1.96 * s) / Math.sqrt(num_trials) ) );
    }
    
    // high endpoint of 95% confidence interval
-   public double confidenceHi(double m, double s, double trials)    
+   public double confidenceHi()    
    {
-       return ( m + ( (1.96 * s) / Math.sqrt(trials) ) );
+       return ( the_mean + ( (1.96 * s) / Math.sqrt(num_trials) ) );
    }
    
 
@@ -139,25 +134,45 @@ public class PercolationStats {
    {
        int n; int t;
        if (args.length != 2){
-           // throw new IllegalArgumentException("Index out of bounds!");
-           n = 4;
-           t = 1;
+           throw new IllegalArgumentException("Usage: java-algs4 PercolationStats ${row size} ${number of trials}");
+           /*
+            * n = 4;
+            * t = 1;
+           */
        }
        else {
            n = Integer.parseInt(args[0]);
            t = Integer.parseInt(args[1]);
+           if (n < 1 || t < 1) {
+               throw new IllegalArgumentException("No negative trials silly");
+           }
        }
-       System.out.println("Hello, World. This was run from PercolationStats.");
+       // System.out.println("Hello, World. This was run from PercolationStats.");
        
        Stopwatch timer = new Stopwatch();
        PercolationStats test = new PercolationStats(n, t);
+       
        System.out.println();
-       System.out.print("Elapsed time: ");
+       System.out.println();
+       System.out.print("mean = ");
+       System.out.print(test.mean());
+       System.out.println();
+       System.out.print("stddv = ");
+       System.out.print(test.stddev());
+       System.out.println();
+       System.out.print("95% confidence interval = [");
+       System.out.print(test.confidenceLo());
+       System.out.print(", ");
+       System.out.print(test.confidenceHi());
+       System.out.print("]");       
+       System.out.println();
+       
+       System.out.println();
+       System.out.print("Elapsed time calculating stats: ");
        System.out.print(timer.elapsedTime());
        System.out.print(" seconds.");
        System.out.println();
        
-       System.out.println("Goodbye, World.");
    }
 }
 

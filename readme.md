@@ -6,6 +6,9 @@ Coded by Eric Mancini
 
 ## Notes:
 
+// Compile: javac-algs4 [FileName].java
+// Run: java-algs4 [FileName]
+
 *Windows Java install:*
 
 (1) get the SDK
