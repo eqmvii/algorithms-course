@@ -22,9 +22,34 @@ function stringListNode(karl) {
     }
 }
 
+function Quu(){
+    this.first = null; 
+}
+
+Quu.push = function(newString){
+    var oldFirst = this.first;
+    this.first = new stringListNode(newString);
+    this.first.next = oldFirst;   
+}
+
+Quu.printAll = function(){
+    var crawler = this.first;
+    while (crawler.next != null){
+        console.log(crawler.payload);
+        crawler = crawler.next;
+    }
+    console.log(crawler.payload);
+}
+
+Quu.pop = function(){
+    this.first = this.first.next;
+}
+
 function main() {
     console.log("Main function called...");
     console.log(" ");
+
+    /*
     var firstNode = new stringListNode("Hello!");
     // at this point it's just one node and it is pointing to null
     var secondNode = new stringListNode("Eric");
@@ -33,8 +58,19 @@ function main() {
     secondNode.next = thirdNode;
     var fourthNode = new stringListNode("Fourth string here!");
     thirdNode.next = fourthNode;
-
     firstNode.printMyChain();
+    */
+
+    var myQ = new Quu();
+    Quu.push("Hello");
+    Quu.push("Eric!");
+    Quu.push("how");
+    Quu.push("are");
+    Quu.push("you?");
+    Quu.printAll();
+    console.log("- - - - pop - - - - -");
+    Quu.pop();
+    Quu.printAll();
 
 
 }
