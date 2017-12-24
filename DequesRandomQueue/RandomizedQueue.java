@@ -3,6 +3,8 @@
 // http://coursera.cs.princeton.edu/algs4/assignments/queues.html
 // By Eric Mancini
 
+// 12/23/3017 -- dev environment moved to laptop
+
 import java.util.Iterator;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
@@ -12,12 +14,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
    // construct an empty randomized queue 
    public RandomizedQueue()
    {
+       // hoo hoo ha ha
    }
    
    // is the randomized queue empty?
    public boolean isEmpty()
    {
-       return false;
+       // true if the array has 0 items, false if it has any items
+       return n == 0;
    }
        
    // return the number of items on the randomized queue    
