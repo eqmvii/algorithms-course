@@ -5,6 +5,7 @@
 
 import java.util.Iterator;
 import java.util.Random;
+import edu.princeton.cs.algs4.StdRandom;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
     private Item[] a; // array of Items
@@ -42,6 +43,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
            grow();
            System.out.println("New array size: " + a.length);
        }
+       
+       // StdRandom.shuffle(a);
        
        // add the item, increment our current location and number of items counters
        a[n] = item;
@@ -132,21 +135,26 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
 // an iterator, doesn't implement remove() since it's optional
     private class RndQueueIterator implements Iterator<Item> {
+        private Item[] iteratorArray;
         private int i;
 
         public RndQueueIterator()
         {
-            i = n - 1;
+            i = 0;
+            // build an array of just the right size
+            iteratorArray = (Item[]) new Object[n];
+            StdRandom.shuffle(iteratorArray);            
         }
 
         public boolean hasNext()
         {
-            return i >= 0;
+            return i <= (iteratorArray.length - 1);
         }
         
         public void remove()
         { 
-         // not implemented  
+            // not implemented
+            throw new UnsupportedOperationException();
         }
 
         public Item next()
@@ -154,7 +162,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             if (!hasNext()) {
                 throw new IllegalArgumentException("Nothing left!");
             }
-            return a[i--];
+            Item respItem = a[i];
+            i++;
+            return respItem;
         }
     }
           
@@ -182,6 +192,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
        System.out.println(testRQ.dequeue());
        testRQ.printArray();
        System.out.println(testRQ.dequeue());
+       testRQ.printArray();
+       testRQ.enqueue(7);
        testRQ.printArray();
 
    }
