@@ -3,6 +3,7 @@
 // http://coursera.cs.princeton.edu/algs4/assignments/queues.html
 // By Eric Mancini
 
+
 import java.util.Iterator;
 import java.util.Random;
 import edu.princeton.cs.algs4.StdRandom;
@@ -98,7 +99,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
        }
        Random rand = new Random();
        int r = rand.nextInt(n);
-       System.out.println("I would remove index " + r);
+       // System.out.println("I would remove index " + r);
        // remove the item at that index and shorten the array if needed
        Item chosen_one = a[r];
        a[r] = a[n - 1];
@@ -143,6 +144,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             i = 0;
             // build an array of just the right size
             iteratorArray = (Item[]) new Object[n];
+            for (int j = 0; j < n; j++){
+                iteratorArray[j] = a[j];
+            }
             StdRandom.shuffle(iteratorArray);            
         }
 
@@ -162,7 +166,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             if (!hasNext()) {
                 throw new IllegalArgumentException("Nothing left!");
             }
-            Item respItem = a[i];
+            Item respItem = iteratorArray[i];
             i++;
             return respItem;
         }

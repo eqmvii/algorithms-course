@@ -2,6 +2,9 @@
 // Reads strings and outputs them at random using a Randomized Queue data structure
 // by Eric Mancini
 
+// Reads in strings from a file/stdin, then
+// prints k of them, uniformly and at random
+
 
 /* 
 Compile: 
@@ -12,6 +15,7 @@ java-algs4 Permutation 3 < distinct.txt
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
+import java.util.Iterator;
 
 
 public class Permutation {
@@ -33,11 +37,32 @@ public class Permutation {
            //System.out.println(test);
            myRQ.enqueue(newItem);
        } 
+       
+       if (k > myRQ.size()){
+           throw new IllegalArgumentException("Cannot print more items than were read in!");
+       }
+       
        System.out.println("=== Input Read! ===");
        myRQ.printArray();
+       System.out.println("=== End input read ===");
+
        
-       // TODO: print k items at random
-       // TODO: Use the iterable interface to accomplish this!
+       // Iterator version:
+       System.out.println("=== Iterator Version: ===");
+       Iterator myIt = myRQ.iterator();
+       /*
+       while(myIt.hasNext()){
+           System.out.println(myIt.next());
+       }
+       */
+       for (int i = 0; i < k; i++){
+           System.out.println(myIt.next());
+       }
+       System.out.println("=== Class method version: ===");
+       for (int j = 0; j < k; j++){
+           System.out.println(myRQ.dequeue());
+       }
+       
        
    }
 }
