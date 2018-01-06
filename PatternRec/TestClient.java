@@ -3,6 +3,14 @@
 // by Eric Mancini
 // boilerplate code from http://coursera.cs.princeton.edu/algs4/assignments/collinear.html
 
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdDraw;
+//import java.util.Iterator;
+
+public class TestClient {
+
 public static void main(String[] args) {
 
     // read the n points from a file
@@ -25,10 +33,16 @@ public static void main(String[] args) {
     StdDraw.show();
 
     // print and draw the line segments
-    FastCollinearPoints collinear = new FastCollinearPoints(points);
+    // choose fast or brute method below:
+    
+    //FastCollinearPoints collinear = new FastCollinearPoints(points);
+    BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+    
     for (LineSegment segment : collinear.segments()) {
         StdOut.println(segment);
         segment.draw();
     }
     StdDraw.show();
+}
+
 }
