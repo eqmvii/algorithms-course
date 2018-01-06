@@ -1,6 +1,7 @@
 // TestClient.java
 // Test client for Collinear Points assignment
 // by Eric Mancini
+// boilerplate code from http://coursera.cs.princeton.edu/algs4/assignments/collinear.html
 
 public static void main(String[] args) {
 

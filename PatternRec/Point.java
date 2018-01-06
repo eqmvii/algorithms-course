@@ -152,11 +152,19 @@ public class Point implements Comparable<Point> {
      * @return the Comparator that defines this ordering on points
      */
     
-    // TODO
-    /*
+    // compares two points by the slope they make with this point
+    // i.e. calculates the slope from a to this point, and b to this point
+    // then compares a vs b based on those slopes
     public Comparator<Point> slopeOrder() {
+        return new Comparator<Point>(){
+        @Override
+        public int compare(Point a, Point b) {
+             // StackOverflow suggestion:            
+            return Double.compare(slopeTo(a), slopeTo(b));            
+        }        
+        };        
     }
-    */
+    
 
 
     /**
