@@ -81,7 +81,29 @@ public class Point implements Comparable<Point> {
      * @return the slope between this point and the specified point
      */
     public double slopeTo(Point that) {
-        /* YOUR CODE HERE */
+        
+        System.out.print("Slope comparison: ");
+        System.out.print(this.toString());
+        System.out.print(" vs. ");
+        System.out.print(that.toString());
+        System.out.print(" -> ");
+        
+       
+        // are the points equal?
+        if (this.x == that.x && this.y == that.y){
+            return Double.NEGATIVE_INFINITY;
+        }
+        // are the lines vertical?
+        if (this.x == that.x){
+            return Double.POSITIVE_INFINITY;
+        }
+        // are the lines horizontal?
+        if (this.y == that.y){
+            return 0;
+        }
+        
+        // otherwise, do a simple slope calculation
+        return (double) ( that.y -  this.y) / (  that.x - this.x);
     }
 
     /**
@@ -97,18 +119,44 @@ public class Point implements Comparable<Point> {
      *         argument point
      */
     public int compareTo(Point that) {
-        /* YOUR CODE HERE */
+        
+        // if x = x and y = y, return 0, as they are the same point
+        if (this.x == that.x && this.y == that.y){
+            return 0;
+        }
+        
+        // if y = y, break ties with x
+        if (this.y == that.y){
+            if (this.x > that.x){
+                return 1;
+            }
+            else {
+                return -1;  
+        }
+        }
+        
+        // otherwise compare by y
+        if (this.y > that.y){
+            return 1;
+        }
+        else {
+            return -1;
+        }
     }
 
+    
     /**
      * Compares two points by the slope they make with this point.
      * The slope is defined as in the slopeTo() method.
      *
      * @return the Comparator that defines this ordering on points
      */
+    
+    // TODO
+    /*
     public Comparator<Point> slopeOrder() {
-        /* YOUR CODE HERE */
     }
+    */
 
 
     /**
@@ -127,6 +175,29 @@ public class Point implements Comparable<Point> {
      * Unit tests the Point data type.
      */
     public static void main(String[] args) {
-        /* YOUR CODE HERE */
+        System.out.println("Point.java main function called!");
+        // 4 points in a square
+        Point a = new Point(1,1);
+        Point b = new Point(1,2);
+        Point c = new Point(2,2);
+        Point d = new Point(2,1);
+        
+        //System.out.println(c.compareTo(a));
+        
+        // slope = 1
+        System.out.print(a.slopeTo(c));
+        System.out.println();
+        // slope = 1
+        System.out.print(c.slopeTo(a));
+        System.out.println();
+        // vertical line, slope = +infinity
+        System.out.print(a.slopeTo(b));
+        System.out.println();
+        // horizontal line, slope = 0
+        System.out.print(a.slopeTo(d));
+        System.out.println();
+        // same point, slope = -infinity
+        System.out.print(a.slopeTo(a));
+        System.out.println();
     }
 }
