@@ -82,11 +82,13 @@ public class Point implements Comparable<Point> {
      */
     public double slopeTo(Point that) {
         
+        /*
         System.out.print("Slope comparison: ");
         System.out.print(this.toString());
         System.out.print(" vs. ");
         System.out.print(that.toString());
         System.out.print(" -> ");
+        */
         
        
         // are the points equal?
