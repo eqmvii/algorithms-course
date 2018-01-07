@@ -19,21 +19,55 @@ public class FastCollinearPoints {
     // finds all line segments containing 4 or more points
     public FastCollinearPoints(Point[] points) {
         System.out.println("Searching for line segments...");
-        // create a storage array to store slope data
+        System.out.println();
+        // create a storage array to store points sorted with respect to slopes to current point
+        Point[] storage = new Point[points.length];
         
         // loop through the array of points
+        for (int i = 0; i < points.length; i++){
+            // at current point, add itself and all other points to new array 
+            for (int j = 0; j < points.length; j++){
+                storage[j] = points[j];
+            }
+            
+            // Testing: print the new array pre-sorting
+            /*
+            System.out.print("Pre-sorted: ");
+            for (int k = 0; k < storage.length; k++){
+                System.out.print(storage[k].toString());
+            }
+            System.out.println();
+            */
+            
+             // sort the storage array with respect to slopeOrder each point has to first point 
+            Arrays.sort(storage, points[i].slopeOrder());      
+            // Testing: print the new array post-sorting
+            System.out.print("Sorted against ");
+            System.out.print(points[i].toString());
+            System.out.print(": ");
+            for (int k = 0; k < storage.length; k++){
+                System.out.print("[");
+                System.out.print(storage[k].toString());
+                System.out.print(", slope: ");
+                System.out.print(String.format("%.2g", points[i].slopeTo(storage[k])));
+                System.out.print("]");
+            }
+            System.out.println();
+            System.out.println();
+            
+            // look through the storage array for 2 or more identical slopeOrders
+            // That creates a line segment, grab all of those points and 
         
-        // at each point, calculate slopeTo from that point to each other point
+            // add first/last to the line segment list (avoid duplicates)
+            
+        }      
         
-        // place all of those slopes in the storage array
+                
+       
         
-        // sort the storage array
+       
         
-        // look through the storage array for any contiguous section of 3 or more slopes
-        
-        // That creates a line segment, sort points in the segment to find first/last
-        
-        // add first/last to the line segment list (avoid duplicates)
+
     }
     
     // the number of line segments
