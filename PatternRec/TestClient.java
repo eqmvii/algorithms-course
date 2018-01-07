@@ -5,6 +5,8 @@
 
 /*
  * Testing:
+ * 
+ * javac-algs4 TestClient.java
  * java-algs4 TestClient input8.txt 
  */
 
@@ -40,8 +42,8 @@ public static void main(String[] args) {
     // print and draw the line segments
     // choose fast or brute method below:
     
-    //FastCollinearPoints collinear = new FastCollinearPoints(points);
-    BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+    FastCollinearPoints collinear = new FastCollinearPoints(points);
+    //BruteCollinearPoints collinear = new BruteCollinearPoints(points);
     
     for (LineSegment segment : collinear.segments()) {
         StdOut.println(segment);
