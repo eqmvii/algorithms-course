@@ -3,6 +3,11 @@
 // by Eric Mancini
 // boilerplate code from http://coursera.cs.princeton.edu/algs4/assignments/collinear.html
 
+/*
+ * Testing:
+ * java-algs4 TestClient input8.txt 
+ */
+
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.In;
